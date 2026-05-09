@@ -108,7 +108,14 @@
   .stmt-mock .row .lbl{color:var(--silver);text-transform:uppercase;letter-spacing:.1em;font-size:10px}
   .stmt-mock .stamp{margin-top:14px;padding:10px;background:var(--cloud);border-radius:4px;font-size:10px;color:var(--steel);word-break:break-all;letter-spacing:.04em}
 
+  .people{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin:8px 0 28px}
+  .people figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .people .pic{width:100%;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:var(--cloud);border:1px solid var(--mist)}
+  .people .pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .people figcaption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);text-align:center}
+
   @media (max-width:720px){
+    .people{grid-template-columns:repeat(3,1fr)}
     h1{font-size:52px}
     h2{font-size:36px}
     .grid-2,.grid-3,.grid-4,.stat-row,.pricing-row,.moat,.ask-block .row{grid-template-columns:1fr;display:flex;flex-direction:column}
@@ -249,6 +256,34 @@
     <div class="crumb"><span>User validation</span><span class="num">05 / 12</span></div>
     <span class="tag go">7 interviews · Network School · May 2026</span>
     <h2>The problem is real. Users are already paying — in time, in spreads, in agent fees.</h2>
+
+    <h3 style="margin-top:8px">The people we sat with</h3>
+    <div class="people">
+      <figure>
+        <div class="pic"><img alt="Elias · Network School Malaysia" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321835/IMG_0709_fi7out.heic" /></div>
+        <figcaption>Elias</figcaption>
+      </figure>
+      <figure>
+        <div class="pic"><img alt="Roberto · Lead Adaptation, Network School" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321838/IMG_0708_anvasl.heic" /></div>
+        <figcaption>Roberto</figcaption>
+      </figure>
+      <figure>
+        <div class="pic"><img alt="Paresh · ex-Solana hackathon winner" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321838/IMG_0711_cyt5hu.heic" /></div>
+        <figcaption>Paresh</figcaption>
+      </figure>
+      <figure>
+        <div class="pic"><img alt="Solane · French → Canadian, 7yr immigration journey" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321843/IMG_0713_d1uqnl.heic" /></div>
+        <figcaption>Solane</figcaption>
+      </figure>
+      <figure>
+        <div class="pic"><img alt="David · Vietnamese builder" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321843/IMG_0712_wp5se8.heic" /></div>
+        <figcaption>David</figcaption>
+      </figure>
+      <figure>
+        <div class="pic"><img alt="Justine · NS resident" src="https://res.cloudinary.com/oghenekparobor/image/upload/f_auto,q_auto,c_fill,g_face,w_480,h_480/v1778321844/IMG_0714_ujnd9j.heic" /></div>
+        <figcaption>Justine</figcaption>
+      </figure>
+    </div>
 
     <div class="stat-row">
       <div><div class="k">Interviewed</div><div class="v">7</div><div class="sub">crypto-native users at Network School Malaysia</div></div>
