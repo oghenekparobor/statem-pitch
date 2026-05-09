@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Statem — Validation Report</title>
+<title>Statem — Investor Pitch</title>
 <style>
   :root{
     --ink:#0D1117; --charcoal:#1f2937; --steel:#374151; --silver:#9ca3af;
@@ -12,146 +12,584 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:980px;margin:0 auto;padding:64px 32px 96px}
-  .topbar{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);border-bottom:1px solid var(--mist);padding-bottom:12px;margin-bottom:48px;display:flex;justify-content:space-between}
-  h1{font-size:48px;letter-spacing:-.02em;margin:0 0 8px;line-height:1.05}
-  h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);margin:48px 0 16px;padding-top:20px;border-top:1px solid var(--mist)}
-  h3{font-size:16px;letter-spacing:.04em;margin:24px 0 8px;color:var(--ink)}
-  p{color:var(--steel);line-height:1.65;margin:0 0 12px;font-size:15px}
-  .lede{font-size:18px;color:var(--charcoal);max-width:680px;line-height:1.55;margin-bottom:32px}
-  .meta{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--mist);border-radius:8px;overflow:hidden;margin:32px 0 16px}
-  .meta div{padding:16px 20px;border-right:1px solid var(--mist)}
-  .meta div:last-child{border-right:none}
-  .meta .k{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:6px}
-  .meta .v{font-size:15px;color:var(--ink);font-weight:500}
-  .verdict{padding:24px 28px;border:1px solid var(--mist);border-left:4px solid var(--accent);border-radius:6px;background:var(--cloud);margin:8px 0 16px}
-  .verdict .label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-  .verdict .body{font-size:17px;color:var(--ink);line-height:1.55}
-  table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:14px}
-  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--mist);vertical-align:top}
-  th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);font-weight:500}
-  td.col-tag{width:120px}
-  .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--mist);color:var(--charcoal)}
+  .deck{max-width:1080px;margin:0 auto;padding:0 32px 96px}
+  .slide{padding:80px 0;border-bottom:1px solid var(--mist);min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .slide:last-child{border-bottom:none}
+  .crumb{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver);margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
+  .crumb .num{color:var(--ink);font-weight:600}
+  h1{font-size:88px;letter-spacing:-.03em;margin:0 0 16px;line-height:1}
+  h2{font-size:52px;letter-spacing:-.02em;margin:0 0 20px;line-height:1.05}
+  h3{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--charcoal);margin:32px 0 14px}
+  h4{font-size:18px;letter-spacing:.02em;margin:18px 0 8px;color:var(--ink);font-weight:600}
+  p{color:var(--steel);line-height:1.6;margin:0 0 14px;font-size:17px}
+  .lede{font-size:22px;color:var(--charcoal);max-width:780px;line-height:1.5;margin-bottom:24px}
+  .tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:3px;background:var(--mist);color:var(--charcoal);margin-bottom:20px}
+  .tag.ink{background:var(--ink);color:#fff}
   .tag.go{background:#dcfce7;color:var(--success)}
   .tag.warn{background:#fef3c7;color:var(--warn)}
   .tag.bad{background:#fee2e2;color:var(--danger)}
   .tag.med{background:#e0e7ff;color:#3730a3}
-  ol,ul{padding-left:20px;color:var(--steel);line-height:1.65;font-size:15px}
-  ol li,ul li{margin-bottom:8px}
-  .score{display:grid;grid-template-columns:1fr auto auto;gap:0;border:1px solid var(--mist);border-radius:8px;overflow:hidden}
-  .score > div{padding:14px 18px;border-bottom:1px solid var(--mist);font-size:14px}
-  .score > div:nth-last-child(-n+3){border-bottom:none}
-  .score .num{font-family:"JetBrains Mono",monospace;font-weight:600;text-align:right}
-  .score .total{background:var(--ink);color:#fff;font-weight:600}
-  .total .num{color:#fff}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-  .footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--mist);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);display:flex;justify-content:space-between}
-  blockquote{margin:8px 0 16px;padding:14px 18px;border-left:3px solid var(--mist);color:var(--charcoal);font-style:italic;font-size:14px;background:var(--cloud);border-radius:0 4px 4px 0}
-  code{font-family:"JetBrains Mono",monospace;font-size:13px;background:var(--cloud);padding:1px 6px;border-radius:3px;color:var(--charcoal)}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{padding:24px;border:1px solid var(--mist);border-radius:8px;background:#fff}
+  .card.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card.dark p,.card.dark .k{color:var(--silver)}
+  .card.dark h4{color:#fff}
+  .card.cloud{background:var(--cloud)}
+  .card .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:8px}
+  .card .v{font-size:34px;letter-spacing:-.02em;color:var(--ink);font-weight:600;line-height:1}
+  .card.dark .v{color:#fff}
+  .card .sub{font-size:13px;color:var(--steel);margin-top:8px}
+  .card.dark .sub{color:var(--silver)}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 16px;font-size:14px}
+  th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--mist);vertical-align:top}
+  th{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);font-weight:500}
+  td.col-tag{width:140px}
+
+  .quote{padding:24px 28px;border-left:3px solid var(--ink);background:var(--cloud);border-radius:0 6px 6px 0;margin:14px 0}
+  .quote p{font-style:italic;color:var(--ink);font-size:17px;margin-bottom:10px;line-height:1.5}
+  .quote .who{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--mist);border-radius:8px;overflow:hidden;margin:24px 0}
+  .stat-row > div{padding:24px;border-right:1px solid var(--mist)}
+  .stat-row > div:last-child{border-right:none}
+  .stat-row .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:8px}
+  .stat-row .v{font-size:32px;letter-spacing:-.02em;color:var(--ink);font-weight:600;line-height:1}
+  .stat-row .sub{font-size:12px;color:var(--steel);margin-top:6px}
+
+  .ask-block{padding:36px;background:var(--ink);color:#fff;border-radius:10px;margin-top:24px}
+  .ask-block h2{color:#fff;font-size:36px}
+  .ask-block p{color:var(--silver);font-size:17px}
+  .ask-block .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid #2a3340}
+  .ask-block .row > div{padding:0}
+  .ask-block .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:8px}
+  .ask-block .v{font-size:24px;color:#fff;font-weight:600}
+
+  ol,ul{padding-left:20px;color:var(--steel);line-height:1.7;font-size:17px}
+  ol li,ul li{margin-bottom:10px}
+
+  .pricing-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--mist);border-radius:8px;overflow:hidden}
+  .pricing-row .col{padding:28px;border-right:1px solid var(--mist)}
+  .pricing-row .col:last-child{border-right:none}
+  .pricing-row .col.featured{background:var(--ink);color:#fff}
+  .pricing-row .col.featured h4,.pricing-row .col.featured .price{color:#fff}
+  .pricing-row .col.featured .feat{color:var(--silver)}
+  .pricing-row .price{font-size:36px;font-weight:600;letter-spacing:-.02em;color:var(--ink);margin:8px 0 16px;line-height:1}
+  .pricing-row .price small{font-size:14px;color:var(--silver);font-weight:400}
+  .pricing-row .feat{font-size:13px;color:var(--steel);line-height:1.55;margin-top:4px}
+
+  .timeline{position:relative;padding-left:32px;margin-top:24px}
+  .timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:var(--mist)}
+  .timeline .step{position:relative;padding-bottom:20px}
+  .timeline .step::before{content:"";position:absolute;left:-32px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--ink);border:3px solid #fff;box-shadow:0 0 0 1px var(--mist)}
+  .timeline .step h4{margin-top:0}
+  .timeline .step .when{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+
+  .moat{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--mist);border-radius:8px;overflow:hidden;margin:16px 0}
+  .moat > div{padding:24px;border-right:1px solid var(--mist)}
+  .moat > div:last-child{border-right:none}
+  .moat .icon{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-bottom:10px}
+  .moat h4{margin:0 0 8px}
+  .moat p{font-size:15px;margin:0}
+
+  .footer{padding:32px 0 0;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);display:flex;justify-content:space-between;border-top:1px solid var(--mist);margin-top:32px}
+  .topbar{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);background:var(--ink);color:#fff;padding:14px 32px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}
+  .topbar .logo{font-weight:700;letter-spacing:.04em}
+
+  .stmt-mock{border:1px solid var(--mist);border-radius:8px;padding:28px;background:#fff;font-family:"JetBrains Mono",monospace;font-size:12px}
+  .stmt-mock .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:16px}
+  .stmt-mock .head .left .ttl{font-family:-apple-system,sans-serif;font-size:18px;font-weight:700;color:var(--ink);letter-spacing:.02em}
+  .stmt-mock .head .left .sub{font-size:11px;color:var(--silver);margin-top:4px;letter-spacing:.1em}
+  .stmt-mock .head .right{text-align:right;font-size:10px;color:var(--steel);letter-spacing:.08em}
+  .stmt-mock .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dotted var(--mist);font-size:11px;color:var(--charcoal)}
+  .stmt-mock .row .lbl{color:var(--silver);text-transform:uppercase;letter-spacing:.1em;font-size:10px}
+  .stmt-mock .stamp{margin-top:14px;padding:10px;background:var(--cloud);border-radius:4px;font-size:10px;color:var(--steel);word-break:break-all;letter-spacing:.04em}
+
+  @media (max-width:720px){
+    h1{font-size:52px}
+    h2{font-size:36px}
+    .grid-2,.grid-3,.grid-4,.stat-row,.pricing-row,.moat,.ask-block .row{grid-template-columns:1fr;display:flex;flex-direction:column}
+    .stat-row > div,.pricing-row .col,.moat > div{border-right:none;border-bottom:1px solid var(--mist)}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="topbar">
-    <span>Validation Report · Phase 1 · Idea</span>
-    <span>2026-05-09</span>
-  </div>
+<div class="topbar">
+  <div class="logo">STATEM</div>
+  <div>Investor pitch · Series Pre-Seed · 2026-05-09</div>
+</div>
 
-  <h1>Statem</h1>
-  <p class="lede">On-chain finance, officially documented. A KYC-bound, cryptographically stamped, bank-format financial statement for crypto wallets — generated from Solana, EVM, and Bitcoin transaction data.</p>
+<div class="deck">
 
-  <div class="meta">
-    <div><div class="k">Verdict</div><div class="v">GO with caveats</div></div>
-    <div><div class="k">Confidence</div><div class="v">0.65 / 1.0</div></div>
-    <div><div class="k">Demand signal</div><div class="v">2 / 3 — Moderate</div></div>
-    <div><div class="k">MVP status</div><div class="v">Already built</div></div>
-  </div>
-
-  <div class="verdict">
-    <div class="label">Recommendation</div>
-    <div class="body">
-      Proceed to a <strong>tight beta + institutional-acceptance test</strong>, not broad scaling. The product is built, the problem is real, and no direct competitor occupies the niche on Solana. But a <em>statem.finance</em> PDF has zero regulatory standing today — until at least one embassy, landlord, or lender accepts it, every other metric is a vanity number. The next 1–2 weeks should resolve that single existential question before any paid acquisition spend.
+  <!-- Slide 1: Cover -->
+  <section class="slide">
+    <div class="crumb"><span>Statem · Pitch</span><span class="num">01 / 12</span></div>
+    <span class="tag ink">On-chain finance, officially documented.</span>
+    <h1>Statem</h1>
+    <p class="lede">A bank-grade financial statement for crypto wallets — KYC-bound, cryptographically stamped, and built for the institutions that still don't know what to do with on-chain income.</p>
+    <div class="grid-4" style="margin-top:24px">
+      <div class="card cloud"><div class="k">Stage</div><div class="v">Built</div><div class="sub">1 chain live · 6 chains scaffolded</div></div>
+      <div class="card cloud"><div class="k">User research</div><div class="v">7</div><div class="sub">interviews · Network School Malaysia</div></div>
+      <div class="card cloud"><div class="k">Channel</div><div class="v">1</div><div class="sub">B2B integration ready (NS · 150+ users)</div></div>
+      <div class="card cloud"><div class="k">Raise</div><div class="v">Pre-seed</div><div class="sub">12-month runway</div></div>
     </div>
-  </div>
+  </section>
 
-  <h2>01 · Problem & demand</h2>
-  <p>Crypto-paid freelancers, DeFi pros, and digital-nomad-visa applicants cannot prove income or assets to embassies, landlords, or lenders the way a traditional bank statement does. Exchange CSVs lack identity binding; blockchain explorers lack institutional formatting; tax tools (Koinly, CoinTracker) produce tax reports, not bank statements.</p>
+  <!-- Slide 2: The Problem -->
+  <section class="slide">
+    <div class="crumb"><span>Problem</span><span class="num">02 / 12</span></div>
+    <span class="tag">Problem</span>
+    <h2>If your money lives on-chain, the world acts like you don't have any.</h2>
+    <p class="lede">Embassies, landlords, lenders, immigration officers, and tax authorities all ask the same question: <em>where's the bank statement?</em> Crypto-native earners have no answer that institutions accept — so they fake one, every month, by hand.</p>
 
-  <table>
-    <thead><tr><th>Strength</th><th>Signal</th></tr></thead>
-    <tbody>
-      <tr><td class="col-tag"><span class="tag go">Strong</span></td><td>Multiple immigration law firms publish dedicated articles on "crypto as proof of funds." Lawyers write where clients pay.</td></tr>
-      <tr><td class="col-tag"><span class="tag go">Strong</span></td><td>Cointelegraph mainstream piece: <em>"Can crypto be used to prove financial independence for travel visas?"</em> The question itself is demand.</td></tr>
-      <tr><td class="col-tag"><span class="tag go">Strong</span></td><td>Persona caught verbatim in industry writing: <em>"Software engineer on a digital nomad visa with significant USDC savings, applications stalling on proof of income."</em> Exact ICP.</td></tr>
-      <tr><td class="col-tag"><span class="tag med">Moderate</span></td><td>Regulatory tailwind: Fannie Mae approved the first crypto-backed mortgage Mar 2026 (Better+Coinbase). Rate, Newrez, RateFi launched crypto-income products. "Verified crypto income" is now a legal category.</td></tr>
-      <tr><td class="col-tag"><span class="tag med">Moderate</span></td><td>W3C Verifiable Credentials v2.0 became a Recommendation May 2025. eIDAS 2.0 EU wallet rolling out. Institutional appetite for cryptographically-signed credentials is rising.</td></tr>
-      <tr><td class="col-tag"><span class="tag warn">Caveat</span></td><td>Mortgage acceptance only covers crypto held at <em>U.S.-regulated exchanges</em> — not self-custody wallets. Statem operates on the wrong side of where institutional trust is currently extending. That is also the wedge.</td></tr>
-    </tbody>
-  </table>
+    <div class="grid-2" style="margin-top:16px">
+      <div class="card">
+        <h4>The painful workaround</h4>
+        <p>Off-ramp monthly to a bank for 3–6 months before you apply. Eat the spread. Eat the fees. Eat the wait. Print a stamped statement. Pray it gets accepted.</p>
+      </div>
+      <div class="card">
+        <h4>What's broken</h4>
+        <p>Exchange CSVs lack identity. Block explorers are jargon. Tax tools (Koinly, CoinTracker) produce tax reports — not bank statements. None bind a verified human to a wallet.</p>
+      </div>
+    </div>
 
-  <h2>02 · Competitive landscape</h2>
-  <p>No direct competitor on Solana produces a KYC-bound, bank-format PDF from on-chain data. The space breaks into four adjacent categories — none of which fully overlap with Statem.</p>
+    <div class="quote">
+      <p>"Every month I have to up-ramp, put 2-3K in the bank to create a proof of income. So I have to choose the right bank — like, support me. I have to prepare 3 months before."</p>
+      <div class="who">David · Vietnamese builder · Network School Malaysia</div>
+    </div>
+    <div class="quote">
+      <p>"I had to go to the bank physically. Download the statement, stamp it, send it over. It is a good day's effort."</p>
+      <div class="who">Paresh · Indian founder · won 2-3 Solana hackathons</div>
+    </div>
+  </section>
 
-  <table>
-    <thead><tr><th>Player</th><th>What they do</th><th>Overlap</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Koinly / CoinTracker</strong></td><td>Tax reports as PDFs from wallet history</td><td>Format & data overlap; <strong>no KYC binding</strong>, no bank-statement framing, no verification portal</td></tr>
-      <tr><td><strong>Solana Attestation Service (SAS)</strong></td><td>Wallet-bound KYC attestations from Civic, Solid, Trusta, Solana.ID, RNS.ID</td><td>Identity primitive — could substitute (institutions go straight to attestations) <em>or</em> enable (Statem becomes an SAS issuer). Strategic call.</td></tr>
-      <tr><td><strong>Reclaim Protocol</strong></td><td>ZK proofs of off-chain banking history</td><td>Different proof shape (cryptographic proof vs. document). Niche developer audience.</td></tr>
-      <tr><td><strong>Better + Coinbase, Newrez, Rate</strong></td><td>Mortgage products that accept crypto as collateral or income</td><td>Institutional layer — they consume statement-like data. Statem could be a feeder, not a competitor.</td></tr>
-      <tr><td><strong>Crypto exchange CSV exports</strong></td><td>Raw transaction history</td><td>The status-quo substitute. Lacks identity binding and institutional format.</td></tr>
-    </tbody>
-  </table>
+  <!-- Slide 3: Why now -->
+  <section class="slide">
+    <div class="crumb"><span>Why now</span><span class="num">03 / 12</span></div>
+    <span class="tag">Why now</span>
+    <h2>Institutions just opened the door — to centralized crypto.<br/>Self-custody is on the wrong side of the line. That's our wedge.</h2>
 
-  <h2>03 · Risk map</h2>
-  <table>
-    <thead><tr><th>Severity</th><th>Risk</th></tr></thead>
-    <tbody>
-      <tr><td class="col-tag"><span class="tag bad">High · Market</span></td><td><strong>Institutional acceptance is unproven.</strong> UK gov explicitly says Bitcoin savings unacceptable for student visas. One Schengen consulate said fiat-only. A <code>statem.finance</code> PDF has no regulatory standing — institutions trust banks because banks are regulated, not because of cryptographic stamps. This is the existential question.</td></tr>
-      <tr><td class="col-tag"><span class="tag bad">High · Market</span></td><td><strong>Self-custody vs centralized direction.</strong> Fannie Mae / Newrez only recognize crypto held at U.S.-regulated exchanges. Statem operates on self-custodial wallets. That is opposite of where institutional trust is currently extending — but also the gap nobody else fills.</td></tr>
-      <tr><td class="col-tag"><span class="tag warn">Med · Competitive</span></td><td><strong>SAS could substitute.</strong> If institutions converge on "present a Civic / SAS attestation," the bank-format PDF becomes irrelevant. Mitigation: integrate with SAS as the issuer of a <em>"verified financial statement"</em> attestation. Ride the standard, don't fight it.</td></tr>
-      <tr><td class="col-tag"><span class="tag warn">Med · Technical</span></td><td><strong>Historical price accuracy across 7 chains.</strong> Birdeye covers Solana well; CoinGecko handles EVMs but historical prices for long-tail tokens at exact tx timestamps are brittle. A wrong USD figure is grounds for institutional rejection.</td></tr>
-      <tr><td class="col-tag"><span class="tag warn">Med · Distribution</span></td><td><strong>No identified channel.</strong> Visa agencies, immigration consultants, and crypto-paid remote workers are dispersed audiences. Without a partner channel, paid acquisition will likely cost more than $9–19 LTV.</td></tr>
-      <tr><td class="col-tag"><span class="tag warn">Med · Regulatory</span></td><td><strong>KYC data handling.</strong> Compliance claims (GDPR, NDPR, POPIA) need a DPA, retention policy, and audited right-to-erasure flow before paid customers — not legal blockers, but legal homework.</td></tr>
-      <tr><td class="col-tag"><span class="tag med">Low · Technical</span></td><td><strong>Cryptographic stamp is web2-grade.</strong> SHA-256 stored in Postgres. A determined adversary controlling Statem's DB can forge records. Anchoring to Solana (memo program or SAS attestation) hardens the integrity claim — cheap and material.</td></tr>
-    </tbody>
-  </table>
+    <div class="card dark" style="margin:24px 0 8px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
+      <div>
+        <div class="k">2026 regulatory landscape</div>
+        <div class="v" style="font-size:64px;line-height:1">25+</div>
+        <div class="sub" style="margin-top:6px">countries now formally recognise crypto earners</div>
+      </div>
+      <div>
+        <p style="color:#cbd5e1;font-size:16px;margin:0">United States, United Kingdom, European Union, and a growing set of Latin American and Asia-Pacific jurisdictions have introduced frameworks that legitimise crypto income, holdings, or both — for tax, mortgage, payroll, and (increasingly) immigration use. The legal category exists. What's missing is the document that fits the framework.</p>
+      </div>
+    </div>
 
-  <h2>04 · Crypto-necessity check</h2>
-  <blockquote>"What breaks if you remove the blockchain?"</blockquote>
-  <p><strong>Most of it.</strong> The product is a wrapper over on-chain data — Helius/RPC for Solana, Alchemy for EVM, Blockstream for Bitcoin. Without these, there is no statement. KYC binding to a wallet is meaningful only because the wallet is the on-chain identity. The cryptographic stamp could exist for any document but has highest value when it can be cross-verified against on-chain history. Crypto is load-bearing, not ornamental.</p>
-  <p>Recommendation: <strong>strengthen the crypto-native claim</strong>. Replace pure-DB SHA-256 with a Solana memo-program anchor (~$0.0001/stmt). Add an SAS attestation issued at KYC completion. Then the integrity story is "verifiable on-chain" rather than "trust our database."</p>
+    <div class="grid-3" style="margin-top:16px">
+      <div class="card">
+        <div class="k">Mar 2026</div>
+        <h4>Fannie Mae approves crypto-backed mortgages</h4>
+        <p>Better + Coinbase ship the first conforming token-backed mortgage. Rate, Newrez, RateFi follow within weeks.</p>
+      </div>
+      <div class="card">
+        <div class="k">May 2025 → 2026</div>
+        <h4>Solana Attestation Service goes live</h4>
+        <p>Civic, Solid, Trusta, Solana.ID issue wallet-bound KYC. The primitive Statem rides — and issues against.</p>
+      </div>
+      <div class="card">
+        <div class="k">May 2025</div>
+        <h4>W3C Verifiable Credentials v2.0</h4>
+        <p>"Verified crypto income" becomes a recognized legal category. eIDAS 2.0 EU wallet rolling out behind it.</p>
+      </div>
+    </div>
 
-  <h2>05 · Go-criteria scorecard</h2>
-  <div class="score">
-    <div>1. Demand score ≥ 2 (moderate)</div><div class="num">✓</div><div class="num">2 / 3</div>
-    <div>2. Technical feasibility — straightforward</div><div class="num">✓</div><div class="num">built</div>
-    <div>3. Time to MVP ≤ 2 weeks</div><div class="num">✓</div><div class="num">shipped</div>
-    <div>4. Unfair advantage</div><div class="num">✓</div><div class="num">stack-combo</div>
-    <div>5. Crypto necessary</div><div class="num">✓</div><div class="num">load-bearing</div>
-    <div class="total">Total</div><div class="total num">5 / 5</div><div class="total num">GO</div>
-  </div>
+    <h3>The gap nobody fills</h3>
+    <p>Mortgage acceptance only covers crypto held at <strong>U.S.-regulated exchanges</strong>. Self-custodial wallet holders — the entire native crypto economy — still have no path. Statem is the bridge: take a self-custodial wallet, bind a verified human to it, produce a document the legacy world can read.</p>
+  </section>
 
-  <h2>06 · Next steps (4-week plan)</h2>
-  <ol>
-    <li><strong>Week 1 — Acceptance test (existential).</strong> Generate 5–10 sample statements for friendly users and physically submit them to: a Schengen consulate, a Portuguese/Spanish landlord agency, a UK student-visa caseworker, and one US immigration attorney. Outcome metric: <em>accepted / accepted-as-supplementary / rejected</em>. This single test resolves whether Statem has product-market fit or just product.</li>
-    <li><strong>Week 1 — B2B partner outreach (parallel).</strong> Email 20 immigration consultants and 10 crypto-tax firms. Offer Statem at $0 for their first 10 client statements in exchange for a 30-min feedback call. Goal: find a channel partner.</li>
-    <li><strong>Week 2 — SAS integration.</strong> Issue a Statem attestation via Solana Attestation Service after KYC + statement generation. Anchors Statem in the canonical Solana identity stack.</li>
-    <li><strong>Week 2 — On-chain stamp anchor.</strong> Replace pure-DB SHA-256 with a Solana memo-program tx containing the hash. Cost: ~$0.0001/statement. Benefit: tamper claim is mathematically true, not "trust-our-DB" true.</li>
-    <li><strong>Week 3 — Distribution test.</strong> $200 of paid X ads targeting "digital nomad visa" / "USDC freelancer." Single CTA → landing page. If CAC > $50, kill paid; double down on B2B.</li>
-    <li><strong>Ongoing — Pricing experiment.</strong> $9/statement is in the noise vs. visa fees ($150–500). Test a $29 single tier with a "rush 24h" badge; institutional buyers don't bargain on compliance docs.</li>
-    <li><strong>Defer:</strong> Phase 4 (CBDC bridges, embassy portal integrations, Statem Score). 2027 problems. Stay focused on the acceptance test.</li>
-  </ol>
+  <!-- Slide 4: The Solution -->
+  <section class="slide">
+    <div class="crumb"><span>Solution</span><span class="num">04 / 12</span></div>
+    <span class="tag">Solution</span>
+    <h2>One PDF. KYC-bound. Cryptographically stamped. Verifiable in a browser.</h2>
 
-  <h2>07 · Phase handoff</h2>
-  <p>Verdict <strong>go-with-caveats</strong>. Recommended next phase: <strong>Build (light) → Validate (heavy)</strong>. The product is shipped enough; the unknown is institutional acceptance, which can only be resolved by submitting real PDFs to real institutions. After the week-1 acceptance test, re-score and decide whether to invest in distribution, pivot the format, or pivot the audience (e.g., from individual visa applicants to crypto-payroll companies needing aggregated statements for tax).</p>
+    <div class="grid-2" style="margin-top:24px">
+      <div>
+        <h4>How it works</h4>
+        <ol>
+          <li><strong>Connect wallet</strong> — Solana live today; EVM (5 chains) + Bitcoin scaffolded for Q3</li>
+          <li><strong>Choose period</strong> — 1M, 3M, 6M, 1Y, custom, or all-time</li>
+          <li><strong>Statem fetches & enriches</strong> via Helius, Alchemy, Birdeye, Blockstream</li>
+          <li><strong>One-time KYC</strong> via Didit — only the hash binds wallet → human</li>
+          <li><strong>SHA-256 stamp</strong> embedded in PDF; on-chain anchor coming</li>
+          <li><strong>Public verify portal</strong> — institutions check tampering at <code>verify.statem.finance/[id]</code></li>
+        </ol>
+      </div>
+      <div class="stmt-mock">
+        <div class="head">
+          <div class="left">
+            <div class="ttl">STATEM</div>
+            <div class="sub">FINANCIAL STATEMENT · Q1 2026</div>
+          </div>
+          <div class="right">STMT-2026-04920<br/>SOLANA MAINNET</div>
+        </div>
+        <div class="row"><span class="lbl">Account holder</span><span>Verified · Didit KYC</span></div>
+        <div class="row"><span class="lbl">Wallet</span><span>7xKX...A9pQ</span></div>
+        <div class="row"><span class="lbl">Period</span><span>Jan 1 – Mar 31, 2026</span></div>
+        <div class="row"><span class="lbl">Opening balance</span><span>$24,180.00</span></div>
+        <div class="row"><span class="lbl">Total inflows</span><span style="color:var(--success)">+$48,920.00</span></div>
+        <div class="row"><span class="lbl">Total outflows</span><span style="color:var(--danger)">−$31,400.00</span></div>
+        <div class="row"><span class="lbl">Closing balance</span><span><strong>$41,700.00</strong></span></div>
+        <div class="stamp">SHA-256 · 9f4a3c…ed12 · Verifiable at verify.statem.finance/STMT-2026-04920</div>
+      </div>
+    </div>
+  </section>
 
-  <div class="footer">
-    <span>STATEM · VALIDATION SPRINT</span>
-    <span>v1.0 · 2026-05-09</span>
-  </div>
+  <!-- Slide 5: User validation -->
+  <section class="slide">
+    <div class="crumb"><span>User validation</span><span class="num">05 / 12</span></div>
+    <span class="tag go">7 interviews · Network School · May 2026</span>
+    <h2>The problem is real. Users are already paying — in time, in spreads, in agent fees.</h2>
+
+    <div class="stat-row">
+      <div><div class="k">Interviewed</div><div class="v">7</div><div class="sub">crypto-native users at Network School Malaysia</div></div>
+      <div><div class="k">Confirmed pain</div><div class="v">5/7</div><div class="sub">have direct experience with the off-ramp workaround</div></div>
+      <div><div class="k">Would pay</div><div class="v">5/5</div><div class="sub">contingent on institutional acceptance</div></div>
+      <div><div class="k">Price ceiling</div><div class="v">$20–50</div><div class="sub">per month for digital nomads · $25 acceptable per statement</div></div>
+    </div>
+
+    <div class="grid-2" style="margin-top:8px">
+      <div class="quote">
+        <p>"I would. I don't have other solutions. Going through an agent is more expensive — and the process is out of your hands. I'd pay 100%."</p>
+        <div class="who">Solane · Fr → Canadian · 7yr immigration journey</div>
+      </div>
+      <div class="quote">
+        <p>"Of course I would pay. The thing is I don't want to move my money off cryptocurrency. If government accepts it, you've solved my biggest problem."</p>
+        <div class="who">Elias · Ugandan · used the off-ramp workaround for Thailand visa</div>
+      </div>
+      <div class="quote">
+        <p>"$1,500 a year for fiat is normal. The price range is not the issue — finding the utility is."</p>
+        <div class="who">Paresh · Indian founder · ex-Solana hackathon winner</div>
+      </div>
+      <div class="quote">
+        <p>"I'd onboard as a customer. $20–50/month feels right — same range as other financial software I use."</p>
+        <div class="who">Justine · NS resident · researching Philippines pop-up city ($2k/mo proof)</div>
+      </div>
+    </div>
+
+    <h3>What we heard repeatedly</h3>
+    <ul>
+      <li><strong>Pricing is not the bottleneck.</strong> Acceptance is. Every interviewee said "yes if accepted."</li>
+      <li><strong>Recurring use case = quarterly tax filings, not annual visas.</strong> Mandatory in most jurisdictions for crypto holders.</li>
+      <li><strong>Trust transfer requires partners.</strong> Users want CPA/audit firm attestation alongside the cryptographic stamp.</li>
+      <li><strong>Travel agents are the substitute</strong> — slow, expensive, opaque. Statem is self-service.</li>
+    </ul>
+  </section>
+
+  <!-- Slide 6: B2B beachhead -->
+  <section class="slide">
+    <div class="crumb"><span>Channel · B2B</span><span class="num">06 / 12</span></div>
+    <span class="tag go">Live partnership signal</span>
+    <h2>Network School wants to integrate Statem into its onboarding flow.</h2>
+
+    <div class="grid-2">
+      <div>
+        <p class="lede">Roberto runs Adaptation at Network School Malaysia — the network city pop-up with 150+ residents. NS already requires every applicant to submit:</p>
+        <ul>
+          <li>A criminal-record attestation</li>
+          <li>Proof of funds <strong>over $13,000</strong></li>
+        </ul>
+        <p>Today, NS provides a link to a third-party criminal attestation service in its application flow. Roberto wants to add Statem the same way — directly in the form, for the financial proof step.</p>
+        <p>Network School is one of dozens of pop-up cities, network states, digital-nomad visa programs, and crypto-native co-living operations launching in 2026. Each one onboards exactly the user Statem was built for.</p>
+      </div>
+      <div class="card dark">
+        <div class="k">B2B beachhead</div>
+        <h4 style="font-size:24px;margin-top:8px">Network School integration</h4>
+        <p>"He'd love to add our system to the process where users can get their statement if they need it. During the long-term residency form, there's a session for criminal attestation and proof-of-funds (over $13k) — he'd like to add Statem for that, just like the criminal attestation link."</p>
+        <div class="k" style="margin-top:24px">From the field</div>
+        <p style="font-style:italic">— Roberto, Lead Adaptation, NS Malaysia</p>
+      </div>
+    </div>
+
+    <h3>Pop-up city / network state TAM (illustrative)</h3>
+    <div class="grid-4" style="margin-top:8px">
+      <div class="card cloud"><div class="k">NS Malaysia</div><div class="v">150+</div><div class="sub">current residents · $13k proof required</div></div>
+      <div class="card cloud"><div class="k">Pop-up cities tracked</div><div class="v">30+</div><div class="sub">Zuzalu, Próspera, Vitalia, Esmeralda…</div></div>
+      <div class="card cloud"><div class="k">Digital nomad visas</div><div class="v">66</div><div class="sub">countries with active programs in 2026</div></div>
+      <div class="card cloud"><div class="k">Crypto-paid workers</div><div class="v">~4M</div><div class="sub">global est. — DAO contributors, freelancers, payroll-on-chain</div></div>
+    </div>
+  </section>
+
+  <!-- Slide 7: Market & TAM -->
+  <section class="slide">
+    <div class="crumb"><span>Market</span><span class="num">07 / 12</span></div>
+    <span class="tag">Market</span>
+    <h2>Three converging buyers. One document.</h2>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="k">Buyer 1 · Individual</div>
+        <h4>Infrequent travellers</h4>
+        <p>Visa applications, digital-nomad-visa renewals, mortgage applications, rental agreements, university admissions. They need a statement once or twice a year. <strong>Pay per statement.</strong></p>
+        <p style="margin-top:14px;font-size:14px;color:var(--silver)"><strong>Pricing:</strong> per-statement, one-off</p>
+      </div>
+      <div class="card">
+        <div class="k">Buyer 2 · Travel agencies</div>
+        <h4>Visa & immigration consultants</h4>
+        <p>Agencies that process dozens of visa applications a month for crypto-paid clients. Statem becomes part of their standard documentation kit. <strong>Monthly subscription.</strong></p>
+        <p style="margin-top:14px;font-size:14px;color:var(--silver)"><strong>Pricing:</strong> monthly seat · pooled statement quota</p>
+      </div>
+      <div class="card">
+        <div class="k">Buyer 3 · Crypto-native enterprise</div>
+        <h4>Treasury · payroll · DAOs · funds</h4>
+        <p>Crypto-native businesses run monthly, quarterly, and yearly accounting audits. Statem produces verifiable, KYC-bound treasury reports — programmatically, on demand. <strong>x402 micropayments or API subscription.</strong></p>
+        <p style="margin-top:14px;font-size:14px;color:var(--silver)"><strong>Pricing:</strong> x402 per call · or API subscription tier</p>
+      </div>
+    </div>
+
+    <h3>Why the buyer mix matters</h3>
+    <p>Individual one-offs are the wedge — Justine flagged that LTV is short. Travel agencies and crypto-native enterprises are the engine: both are recurring, both have volume, and both have B2B-grade willingness to pay. x402 lets enterprises pay per API call without a contract — a Solana-native primitive that meets crypto-native finance teams where they already operate.</p>
+  </section>
+
+  <!-- Slide 8: Pricing -->
+  <section class="slide">
+    <div class="crumb"><span>Pricing</span><span class="num">08 / 12</span></div>
+    <span class="tag">Business model</span>
+    <h2>Priced against the alternatives, not against the cost to serve.</h2>
+
+    <div class="pricing-row" style="grid-template-columns:repeat(3,1fr)">
+      <div class="col">
+        <div class="k" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver)">Per statement · Individual</div>
+        <div class="price">Pay-as-you-go</div>
+        <div class="feat">For infrequent travellers — visa, mortgage, rental, university</div>
+        <div class="feat">Single download · KYC + cryptographic stamp</div>
+        <div class="feat">CPA attestation letter attached</div>
+        <div class="feat" style="color:var(--silver);margin-top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Free preview · last 30 days · watermarked · no download</div>
+      </div>
+      <div class="col featured">
+        <div class="k" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff">Monthly · Travel agencies</div>
+        <div class="price">Subscription</div>
+        <div class="feat">For visa & immigration consultancies processing high volume</div>
+        <div class="feat">Pooled statement quota · per-seat licensing</div>
+        <div class="feat">Bulk client wallet onboarding · agency dashboard</div>
+        <div class="feat">CPA attestation included on every statement</div>
+      </div>
+      <div class="col">
+        <div class="k" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver)">x402 / API · Enterprise</div>
+        <div class="price">Per call or sub</div>
+        <div class="feat">For crypto-native firms — treasury, payroll, DAOs, funds</div>
+        <div class="feat">x402 micropayments on each API call</div>
+        <div class="feat">API subscription tier for monthly · quarterly · yearly audits</div>
+        <div class="feat">Webhook into accounting pipelines</div>
+      </div>
+    </div>
+
+    <h3>CPA attestation, attached to every statement</h3>
+    <p>We are in active outreach to well-known accounting firms for an attestation overlay. Every Statem document — across all three tiers — is co-signed by a partnered CPA firm. This raises the trust bar from "Statem says so" to "Statem says so, and a regulated auditor backs it." It is the closest analogue to a bank's regulatory standing, which is the trust Statem must transfer to be accepted institutionally.</p>
+
+    <h3>Anchor against alternatives</h3>
+    <table>
+      <thead><tr><th>What users pay today</th><th>Approx cost</th><th>Statem replaces with</th></tr></thead>
+      <tbody>
+        <tr><td>Off-ramp spread × 3 months + bank fees</td><td>$200–800</td><td>$25 single statement</td></tr>
+        <tr><td>Travel-agent visa packaging</td><td>$300–1,500</td><td>$25 self-service</td></tr>
+        <tr><td>Crypto tax software (Koinly Pro)</td><td>$199/yr</td><td>$19/mo with KYC binding included</td></tr>
+        <tr><td>Manual CPA crypto-statement work</td><td>$500–2,000</td><td>$49/mo Business + CPA attestation overlay</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Slide 9: Competition -->
+  <section class="slide">
+    <div class="crumb"><span>Competition</span><span class="num">09 / 12</span></div>
+    <span class="tag">Competition</span>
+    <h2>Adjacent players. Nobody in the same square.</h2>
+
+    <table>
+      <thead><tr><th>Player</th><th>What they do</th><th>What they don't</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Koinly · CoinTracker</strong></td>
+          <td>Tax reports as PDFs from wallet history. Strong brand, exchange integrations.</td>
+          <td>No KYC binding · no bank format · no verification portal</td>
+        </tr>
+        <tr>
+          <td><strong>Solana Attestation Service</strong></td>
+          <td>Wallet-bound KYC attestations from Civic, Solid, Trusta, Solana.ID.</td>
+          <td>Identity primitive only — no statement, no PDF, no institutional readability. <em>Statem will issue against it.</em></td>
+        </tr>
+        <tr>
+          <td><strong>Reclaim Protocol</strong></td>
+          <td>ZK proofs of off-chain banking history.</td>
+          <td>Proof-shape mismatch · niche developer audience · not consumer-ready</td>
+        </tr>
+        <tr>
+          <td><strong>Better + Coinbase · Newrez · Rate</strong></td>
+          <td>Mortgage products that accept crypto as collateral or income.</td>
+          <td>Centralized-exchange-only · don't recognize self-custody. Statem is a feeder, not a competitor.</td>
+        </tr>
+        <tr>
+          <td><strong>Exchange CSV exports + travel agents</strong></td>
+          <td>Status-quo workaround.</td>
+          <td>Manual · expensive · unverifiable · officer-dependent</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>The moat</h3>
+    <div class="moat">
+      <div>
+        <div class="icon">01 · Stack</div>
+        <h4>The combination is the moat</h4>
+        <p>Verified identity + bank-format PDF + cryptographic stamp + multi-chain — nobody assembles all four.</p>
+      </div>
+      <div>
+        <div class="icon">02 · Distribution</div>
+        <h4>B2B beachheads compound</h4>
+        <p>Pop-up cities, travel agencies, crypto-native enterprises. Each integration is hard to displace.</p>
+      </div>
+      <div>
+        <div class="icon">03 · Trust graph</div>
+        <h4>CPA + bank attestations</h4>
+        <p>Each accounting firm or bank that attests increases acceptance. The graph is the asset.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 10: Traction & roadmap -->
+  <section class="slide">
+    <div class="crumb"><span>Traction · Roadmap</span><span class="num">10 / 12</span></div>
+    <span class="tag warn">Early beta</span>
+    <h2>In early beta. Testable end-to-end. Now we resolve acceptance.</h2>
+    <p class="lede">Frontend and verification portal are live for testing. Wallet connection, statement generation, KYC binding, and tamper-check all work today on Solana. We are not publicly launched — we are pre-launch, validating with real users and institutions before we open the gate.</p>
+
+    <div class="grid-4">
+      <div class="card cloud"><div class="k">Frontend</div><div class="v">Beta</div><div class="sub">brand-overhauled · open for invited testers</div></div>
+      <div class="card cloud"><div class="k">Chains</div><div class="v">1 / 7</div><div class="sub">Solana live · ETH, Base, Polygon, ARB, OP, BTC scaffolded</div></div>
+      <div class="card cloud"><div class="k">KYC</div><div class="v">Wired</div><div class="sub">Didit · webhook · wallet binding</div></div>
+      <div class="card cloud"><div class="k">Verification portal</div><div class="v">Beta</div><div class="sub">SHA-256 hash · QR code · public URL — testable</div></div>
+    </div>
+
+    <h3>12-week execution plan</h3>
+    <div class="timeline">
+      <div class="step">
+        <div class="when">In progress · Acceptance test</div>
+        <h4>Submitting Statem documents to live visa applications</h4>
+        <p>We are actively submitting Statem-generated statements as proof of funds in visa applications across multiple countries. Each submission gives us a direct feedback loop with embassies and immigration agencies — accepted / accepted-as-supplementary / rejected, and why. This is the answer to the existential risk, written by the institutions themselves.</p>
+      </div>
+      <div class="step">
+        <div class="when">In progress · CPA partnerships</div>
+        <h4>Attestation letters from well-known accounting firms</h4>
+        <p>Reaching out to recognised CPA firms to co-sign every Statem document with a formal attestation letter. Raises the trust bar from "Statem says so" to "Statem says so, audited and attested by a regulated firm." Every statement across every tier carries this signature.</p>
+      </div>
+      <div class="step">
+        <div class="when">Week 1–4 · Channel</div>
+        <h4>Close Network School integration · pursue 5 more</h4>
+        <p>Embed Statem in NS application form. Outreach to Próspera, Vitalia, Esmeralda, Zuzalu-style pop-ups; sign first travel agencies and crypto-native firms.</p>
+      </div>
+      <div class="step">
+        <div class="when">Week 3–6 · On-chain hardening</div>
+        <h4>SAS attestation issuer · Solana memo-program anchor</h4>
+        <p>Move stamp from DB to chain. Issue verifiable Statem attestation per KYC. Cost: ~$0.0001/statement; benefit: cryptographic claim becomes mathematically true.</p>
+      </div>
+      <div class="step">
+        <div class="when">Week 6–10 · Enterprise rails</div>
+        <h4>x402 micropayments + API subscription tier</h4>
+        <p>Ship the x402 payment endpoint and the API subscription tier for crypto-native finance teams running monthly · quarterly · yearly audits. Webhook into common accounting pipelines.</p>
+      </div>
+      <div class="step">
+        <div class="when">Week 10–12 · Distribution</div>
+        <h4>Paid + content distribution test</h4>
+        <p>$2k spend on X targeting "digital nomad visa" / "USDC freelancer." Kill if CAC > $50; double down on B2B (travel agencies + crypto-native firms).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 11: Risk and mitigation -->
+  <section class="slide">
+    <div class="crumb"><span>Risk</span><span class="num">11 / 12</span></div>
+    <span class="tag warn">Honest risk map</span>
+    <h2>The risks that matter — and what we're doing about each.</h2>
+
+    <table>
+      <thead><tr><th>Severity · Category</th><th>Risk</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="col-tag"><span class="tag bad">High · Market</span></td>
+          <td>Institutional acceptance unproven. UK gov says Bitcoin savings unacceptable for student visas. Schengen consulate said fiat-only.</td>
+          <td>Live acceptance test in progress — Statem documents are being submitted to real visa applications across multiple countries. CPA attestation outreach is active and will sign every statement.</td>
+        </tr>
+        <tr>
+          <td class="col-tag"><span class="tag bad">High · Market</span></td>
+          <td>Self-custody vs centralized direction — institutions extend trust to regulated exchanges first.</td>
+          <td>Position Statem as the bridge for self-custody. Issue SAS attestations to ride the canonical primitive.</td>
+        </tr>
+        <tr>
+          <td class="col-tag"><span class="tag warn">Med · Competitive</span></td>
+          <td>SAS could substitute if institutions accept attestations directly.</td>
+          <td>Become an SAS issuer ourselves. Statem-issued attestation = highest-quality credential in the registry.</td>
+        </tr>
+        <tr>
+          <td class="col-tag"><span class="tag warn">Med · Distribution</span></td>
+          <td>Visa applicants are dispersed; CAC could exceed LTV.</td>
+          <td>Lead with B2B (Network School-shaped channels). Quarterly tax filings give recurring LTV.</td>
+        </tr>
+        <tr>
+          <td class="col-tag"><span class="tag warn">Med · Technical</span></td>
+          <td>Historical price accuracy across the 7-chain roadmap is brittle for long-tail tokens.</td>
+          <td>Hybrid sources (Birdeye + CoinGecko + Pyth) with confidence flagging on unsupported pairs.</td>
+        </tr>
+        <tr>
+          <td class="col-tag"><span class="tag med">Low · Technical</span></td>
+          <td>Cryptographic stamp is web2 SHA-256 in Postgres today.</td>
+          <td>Solana memo-program anchor in week 3–6. Cheap, eliminates trust-our-DB exposure.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Slide 12: The Ask -->
+  <section class="slide">
+    <div class="crumb"><span>The ask</span><span class="num">12 / 12</span></div>
+    <span class="tag ink">Pre-seed · 12-month runway</span>
+    <h2>What we're raising. What it buys. What success looks like.</h2>
+
+    <div class="ask-block">
+      <h2 style="margin-bottom:8px">Pre-seed · target $400k SAFE</h2>
+      <p>12 months of runway to resolve institutional acceptance, lock in 3 B2B beachheads, and reach $20k MRR before priced round.</p>
+      <div class="row">
+        <div>
+          <div class="k">40% · Engineering</div>
+          <div class="v">$160k</div>
+          <p style="margin-top:8px">SAS issuer, on-chain anchor, multi-chain hardening, admin panel UI.</p>
+        </div>
+        <div>
+          <div class="k">35% · Partnerships & legal</div>
+          <div class="v">$140k</div>
+          <p style="margin-top:8px">CPA firm retainers, bank/audit attestation contracts, KYC/data-protection legal review.</p>
+        </div>
+        <div>
+          <div class="k">25% · GTM</div>
+          <div class="v">$100k</div>
+          <p style="margin-top:8px">B2B sales (pop-up cities, immigration consultants, crypto-tax firms), content, paid acquisition tests.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>12-month milestones</h3>
+    <div class="grid-4">
+      <div class="card"><div class="k">Acceptance</div><div class="v">3+</div><div class="sub">institutions accept Statem PDFs</div></div>
+      <div class="card"><div class="k">B2B integrations</div><div class="v">5</div><div class="sub">travel agencies + crypto-native firms live</div></div>
+      <div class="card"><div class="k">Paying customers</div><div class="v">2,000</div><div class="sub">individual + recurring tax tier</div></div>
+      <div class="card"><div class="k">MRR</div><div class="v">$20k</div><div class="sub">target before next round</div></div>
+    </div>
+
+    <div class="footer">
+      <span>STATEM · ON-CHAIN FINANCE, OFFICIALLY DOCUMENTED</span>
+      <span>v1.0 · 2026-05-09 · hello@statem.finance</span>
+    </div>
+  </section>
 
 </div>
+
 </body>
 </html>
