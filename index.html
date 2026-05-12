@@ -114,6 +114,36 @@
   .people .pic img{width:100%;height:100%;object-fit:cover;display:block}
   .people figcaption{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);text-align:center}
 
+  @media print{
+    @page{size:Letter;margin:0}
+    html,body{background:#fff}
+    .topbar{position:static;padding:10px 32px;font-size:9px}
+    .deck{max-width:none;padding:0 32px 0}
+    .slide{min-height:0;padding:28px 0 24px;border-bottom:none;page-break-after:always;break-after:page;display:block}
+    .slide:last-child{page-break-after:auto;break-after:auto}
+    h1{font-size:54px}
+    h2{font-size:34px;margin-bottom:12px}
+    h3{margin:16px 0 8px}
+    .lede{font-size:16px;margin-bottom:14px}
+    p,ol,ul{font-size:13px;line-height:1.5}
+    .card{padding:14px;break-inside:avoid}
+    .card .v,.stat-row .v,.ask-block .v{font-size:24px}
+    .stat-row > div,.pricing-row .col,.moat > div{padding:14px}
+    .timeline .step{break-inside:avoid;padding-bottom:12px}
+    .timeline .step p{font-size:12px}
+    table{font-size:11px;break-inside:auto}
+    tr{break-inside:avoid}
+    th,td{padding:8px 10px}
+    .quote{padding:14px 16px;margin:8px 0;break-inside:avoid}
+    .quote p{font-size:13px}
+    .ask-block{padding:20px;margin-top:14px}
+    .ask-block h2{font-size:24px}
+    .people{margin:4px 0 14px;gap:8px}
+    .people figcaption{font-size:8px}
+    .stmt-mock{padding:16px}
+    .footer{margin-top:14px;padding-top:14px}
+    a{color:inherit;text-decoration:none}
+  }
   @media (max-width:720px){
     .people{grid-template-columns:repeat(3,1fr)}
     h1{font-size:52px}
@@ -127,7 +157,7 @@
 
 <div class="topbar">
   <div class="logo">STATEM</div>
-  <div>Investor pitch · Series Pre-Seed · 2026-05-09</div>
+  <div>Investor pitch · Angel round · 2026-05-12</div>
 </div>
 
 <div class="deck">
@@ -142,7 +172,7 @@
       <div class="card cloud"><div class="k">Stage</div><div class="v">Built</div><div class="sub">1 chain live · 6 chains scaffolded</div></div>
       <div class="card cloud"><div class="k">User research</div><div class="v">7</div><div class="sub">interviews · Network School Malaysia</div></div>
       <div class="card cloud"><div class="k">Channel</div><div class="v">1</div><div class="sub">B2B integration ready (NS · 150+ users)</div></div>
-      <div class="card cloud"><div class="k">Raise</div><div class="v">Pre-seed</div><div class="sub">12-month runway</div></div>
+      <div class="card cloud"><div class="k">Raise</div><div class="v">Angel</div><div class="sub">12-month runway · $250k SAFE</div></div>
     </div>
   </section>
 
@@ -178,39 +208,105 @@
   <section class="slide">
     <div class="crumb"><span>Why now</span><span class="num">03 / 12</span></div>
     <span class="tag">Why now</span>
-    <h2>Institutions just opened the door — to centralized crypto.<br/>Self-custody is on the wrong side of the line. That's our wedge.</h2>
+    <h2>Tax authorities, retirement regulators, and immigration ministries all recognise crypto income.<br/>None of them accept a block-explorer screenshot.</h2>
 
     <div class="card dark" style="margin:24px 0 8px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
       <div>
         <div class="k">2026 regulatory landscape</div>
         <div class="v" style="font-size:64px;line-height:1">25+</div>
-        <div class="sub" style="margin-top:6px">countries now formally recognise crypto earners</div>
+        <div class="sub" style="margin-top:6px">jurisdictions formally recognise crypto income or holdings</div>
       </div>
       <div>
-        <p style="color:#cbd5e1;font-size:16px;margin:0">United States, United Kingdom, European Union, and a growing set of Latin American and Asia-Pacific jurisdictions have introduced frameworks that legitimise crypto income, holdings, or both — for tax, mortgage, payroll, and (increasingly) immigration use. The legal category exists. What's missing is the document that fits the framework.</p>
+        <p style="color:#cbd5e1;font-size:16px;margin:0">The legal category exists across tax, retirement, mortgage, payroll, and (now) immigration. What's missing is the document that fits the framework — KYC-bound, period-scoped, signed by a recognised auditor. Statem is that document.</p>
       </div>
     </div>
 
-    <div class="grid-3" style="margin-top:16px">
+    <h3>United States — tax + retirement recognition is now explicit</h3>
+    <div class="grid-3" style="margin-top:8px">
       <div class="card">
-        <div class="k">Mar 2026</div>
-        <h4>Fannie Mae approves crypto-backed mortgages</h4>
-        <p>Better + Coinbase ship the first conforming token-backed mortgage. Rate, Newrez, RateFi follow within weeks.</p>
+        <div class="k">IRS · Digital Assets</div>
+        <h4>Crypto income is ordinary income at FMV</h4>
+        <p>The IRS treats crypto received as compensation, staking, mining, or airdrops as ordinary income at fair market value on receipt — reported on W-2 or 1099, taxed exactly like wages.</p>
+        <p style="font-size:12px;color:var(--silver);margin-top:8px"><a href="https://www.irs.gov/filing/digital-assets" style="color:var(--silver)">irs.gov/filing/digital-assets</a></p>
       </div>
       <div class="card">
-        <div class="k">May 2025 → 2026</div>
-        <h4>Solana Attestation Service goes live</h4>
-        <p>Civic, Solid, Trusta, Solana.ID issue wallet-bound KYC. The primitive Statem rides — and issues against.</p>
+        <div class="k">IRS · Jan 1, 2025</div>
+        <h4>Form 1099-DA goes live</h4>
+        <p>First-ever federal broker-reporting form for digital-asset dispositions. Crypto income now flows through the same reporting plumbing as brokerage accounts.</p>
+        <p style="font-size:12px;color:var(--silver);margin-top:8px"><a href="https://www.irs.gov/individuals/international-taxpayers/frequently-asked-questions-on-digital-asset-transactions" style="color:var(--silver)">IRS · Digital Asset FAQs</a></p>
       </div>
       <div class="card">
-        <div class="k">May 2025</div>
-        <h4>W3C Verifiable Credentials v2.0</h4>
-        <p>"Verified crypto income" becomes a recognized legal category. eIDAS 2.0 EU wallet rolling out behind it.</p>
+        <div class="k">DOL · Mar 2026</div>
+        <h4>Crypto allowed in 401(k) plans</h4>
+        <p>DOL rescinded the 2022 cautious guidance and proposed a rule opening 401(k)s to crypto and alts after a White House executive order. Retirement-grade recognition.</p>
+        <p style="font-size:12px;color:var(--silver);margin-top:8px"><a href="https://www.dol.gov/agencies/ebsa/employers-and-advisers/plan-administration-and-compliance/compliance-assistance-releases/2025-01" style="color:var(--silver)">DOL CAR 2025-01</a> · <a href="https://www.coindesk.com/policy/2026/03/30/u-s-rule-change-may-open-trillions-in-401-k-funds-to-crypto" style="color:var(--silver)">CoinDesk</a></p>
       </div>
     </div>
+
+    <h3>Mortgage + identity rails coming online in parallel</h3>
+    <div class="grid-3" style="margin-top:8px">
+      <div class="card">
+        <div class="k">Mar 2026 · Fannie Mae</div>
+        <h4>Crypto-backed mortgages approved</h4>
+        <p>Better + Coinbase ship the first conforming token-backed mortgage. Rate, Newrez, RateFi follow within weeks — but only for crypto held at U.S.-regulated exchanges.</p>
+      </div>
+      <div class="card">
+        <div class="k">May 2025 · Solana</div>
+        <h4>Solana Attestation Service live</h4>
+        <p>Civic, Solid, Trusta, Solana.ID issue wallet-bound KYC. The primitive Statem rides — and will issue against.</p>
+      </div>
+      <div class="card">
+        <div class="k">May 2025 · W3C</div>
+        <h4>Verifiable Credentials v2.0</h4>
+        <p>"Verified crypto income" becomes a recognised credential category. eIDAS 2.0 EU wallet rolling out behind it.</p>
+      </div>
+    </div>
+
+    <h3>Where crypto earners can already qualify — and what they're asked for</h3>
+    <table>
+      <thead><tr><th>Jurisdiction</th><th>Program</th><th>Crypto-income posture</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Portugal</strong></td>
+          <td>D7 Passive Income Visa · Golden Visa</td>
+          <td>Crypto held &gt;365 days is tax-free. D7 accepts crypto-derived passive income at €920/mo if shown via 3-month bank inflows. Golden Visa allows BTC-funded routes.</td>
+          <td><a href="https://www.globalcitizensolutions.com/portugal-crypto-tax/" style="color:var(--silver);font-size:12px">globalcitizensolutions.com</a></td>
+        </tr>
+        <tr>
+          <td><strong>UAE · Dubai</strong></td>
+          <td>GDRFAD Virtual Work visa</td>
+          <td>$3,500/mo remote-income proof. Zero personal income tax. Crypto-friendly but proof still requires statement-shaped documentation.</td>
+          <td><a href="https://immigrantinvest.com/blog/crypto-tax-havens/" style="color:var(--silver);font-size:12px">immigrantinvest.com</a></td>
+        </tr>
+        <tr>
+          <td><strong>El Salvador</strong></td>
+          <td>Freedom Passport (CBI)</td>
+          <td>Only program that accepts BTC/USDT <em>directly</em> as the qualifying investment ($1M). Bitcoin = legal tender since 2021.</td>
+          <td><a href="https://www.imidaily.com/analysis/crypto-residency-programs-where-bitcoin-gets-you-a-visa/" style="color:var(--silver);font-size:12px">IMI Daily</a></td>
+        </tr>
+        <tr>
+          <td><strong>Bhutan</strong></td>
+          <td>Blockchain-backed Digital Nomad Visa</td>
+          <td>First-of-kind: $10k TER token deposit via DK Bank. World's first DNV settled on-chain (launched early 2026).</td>
+          <td><a href="https://www.imidaily.com/analysis/crypto-residency-programs-where-bitcoin-gets-you-a-visa/" style="color:var(--silver);font-size:12px">IMI Daily</a></td>
+        </tr>
+        <tr>
+          <td><strong>Thailand</strong></td>
+          <td>Destination Thailand Visa (DTV)</td>
+          <td>500k THB (~$14.5k) in personal bank account, 3 months of statements. Crypto-derived income must be converted + shown as bank inflow. <strong>Statem currently under live submission.</strong></td>
+          <td><a href="https://dtv.in.th/" style="color:var(--silver);font-size:12px">dtv.in.th</a></td>
+        </tr>
+        <tr>
+          <td><strong>Germany · EU</strong></td>
+          <td>Freelancer visa · eIDAS 2.0 wallet</td>
+          <td>Crypto held &gt;1yr tax-free. eIDAS 2.0 wallet (Q3 2026 rollout) will recognise W3C verifiable credentials — the format Statem maps to.</td>
+          <td><a href="https://immigrantinvest.com/blog/crypto-tax-havens/" style="color:var(--silver);font-size:12px">immigrantinvest.com</a></td>
+        </tr>
+      </tbody>
+    </table>
 
     <h3>The gap nobody fills</h3>
-    <p>Mortgage acceptance only covers crypto held at <strong>U.S.-regulated exchanges</strong>. Self-custodial wallet holders — the entire native crypto economy — still have no path. Statem is the bridge: take a self-custodial wallet, bind a verified human to it, produce a document the legacy world can read.</p>
+    <p>Recognition is broad. <strong>Self-custodial recognition is not.</strong> Mortgage acceptance only covers crypto at U.S.-regulated exchanges. Visa officers want bank-shaped paper. Auditors want signed attestations. Self-custodial wallet holders — the entire native crypto economy — still have no path. Statem is the bridge: take a self-custodial wallet, bind a verified human to it, produce a document the legacy world can read.</p>
   </section>
 
   <!-- Slide 4: The Solution -->
@@ -324,7 +420,7 @@
   <section class="slide">
     <div class="crumb"><span>Channel · B2B</span><span class="num">06 / 12</span></div>
     <span class="tag go">Live partnership signal</span>
-    <h2>Network School wants to integrate Statem into its onboarding flow.</h2>
+    <h2>Network School first. Pop-up cities, travel agencies, and Nomadz next.</h2>
 
     <div class="grid-2">
       <div>
@@ -333,7 +429,7 @@
           <li>A criminal-record attestation</li>
           <li>Proof of funds <strong>over $13,000</strong></li>
         </ul>
-        <p>Today, NS provides a link to a third-party criminal attestation service in its application flow. Roberto wants to add Statem the same way — directly in the form, for the financial proof step.</p>
+        <p>Today, NS links to a third-party criminal-attestation service in its application flow. Roberto wants to add Statem the same way — directly in the form, for the financial proof step. <strong>That is our long-term distribution route:</strong> every NS cohort onboards through Statem, every residency renewal pings Statem, every visa-application support letter cites a Statem document. The flywheel compounds with each cohort.</p>
         <p>Network School is one of dozens of pop-up cities, network states, digital-nomad visa programs, and crypto-native co-living operations launching in 2026. Each one onboards exactly the user Statem was built for.</p>
       </div>
       <div class="card dark">
@@ -342,6 +438,21 @@
         <p>"He'd love to add our system to the process where users can get their statement if they need it. During the long-term residency form, there's a session for criminal attestation and proof-of-funds (over $13k) — he'd like to add Statem for that, just like the criminal attestation link."</p>
         <div class="k" style="margin-top:24px">From the field</div>
         <p style="font-style:italic">— Roberto, Lead Adaptation, NS Malaysia</p>
+      </div>
+    </div>
+
+    <h3>Active outreach — soft intros in motion</h3>
+    <div class="grid-2" style="margin-top:8px">
+      <div class="card">
+        <div class="k">Prospective collaboration · Live</div>
+        <h4>Nomadz.xyz</h4>
+        <p>Solana-native travel booking aggregator for Web3 nomads — 1M+ stays, USDC settlement, on-chain Nomad ID. Their users are <em>exactly</em> our buyer: crypto-paid travellers needing proof of funds for visa renewals. Conversation opened on a co-marketing + embedded-statement integration: every Nomadz booking that requires a visa pulls a Statem document inline.</p>
+        <p style="font-size:12px;color:var(--silver);margin-top:8px"><a href="https://nomadz.xyz/" style="color:var(--silver)">nomadz.xyz</a></p>
+      </div>
+      <div class="card">
+        <div class="k">Pop-up cities · Soft-intro outreach</div>
+        <h4>Próspera · Vitalia · Esmeralda · Cabin · Zuzalu-shaped pop-ups</h4>
+        <p>Following the NS template — every pop-up city runs a proof-of-funds check at the residency-application step. Soft introductions in progress through shared founders, NS resident network, and Solana-ecosystem connectors. Goal: 3 more pop-up integrations signed in 90 days.</p>
       </div>
     </div>
 
@@ -401,11 +512,12 @@
         <div class="feat" style="color:var(--silver);margin-top:10px;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Free preview · last 30 days · watermarked · no download</div>
       </div>
       <div class="col featured">
-        <div class="k" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff">Monthly · Travel agencies</div>
-        <div class="price">Subscription</div>
-        <div class="feat">For visa & immigration consultancies processing high volume</div>
-        <div class="feat">Pooled statement quota · per-seat licensing</div>
-        <div class="feat">Bulk client wallet onboarding · agency dashboard</div>
+        <div class="k" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff">Monthly · Visa agency subscription</div>
+        <div class="price">$299–999<small>/mo</small></div>
+        <div class="feat"><strong>Starter · $299/mo</strong> — 1 seat · 25 statements/mo pooled · agency-branded PDF cover</div>
+        <div class="feat"><strong>Growth · $599/mo</strong> — 3 seats · 75 statements/mo · bulk wallet onboarding · client dashboard</div>
+        <div class="feat"><strong>Firm · $999/mo</strong> — 10 seats · 200 statements/mo · API access · co-branded verify portal · priority CPA attestation queue</div>
+        <div class="feat">Overage at $15/statement · annual prepay −15%</div>
         <div class="feat">CPA attestation included on every statement</div>
       </div>
       <div class="col">
@@ -507,19 +619,25 @@
     <h3>12-week execution plan</h3>
     <div class="timeline">
       <div class="step">
-        <div class="when">In progress · Acceptance test</div>
-        <h4>Submitting Statem documents to live visa applications</h4>
-        <p>We are actively submitting Statem-generated statements as proof of funds in visa applications across multiple countries. Each submission gives us a direct feedback loop with embassies and immigration agencies — accepted / accepted-as-supplementary / rejected, and why. This is the answer to the existential risk, written by the institutions themselves.</p>
+        <div class="when">Live · Acceptance test #1</div>
+        <h4>Thailand DTV submitted — strictly with Statem · awaiting feedback</h4>
+        <p>I just submitted a Destination Thailand Visa (DTV) application using <strong>only</strong> a Statem-generated statement as proof of funds — no off-ramped bank statement, no agent-packaged docs. This is the first real institutional test: an embassy makes the call, and we get a binary answer back. Outcome — accepted, accepted-as-supplementary, or rejected with reason — directly informs how we position acceptance to every other buyer.</p>
       </div>
       <div class="step">
-        <div class="when">In progress · CPA partnerships</div>
-        <h4>Attestation letters from well-known accounting firms</h4>
-        <p>Reaching out to recognised CPA firms to co-sign every Statem document with a formal attestation letter. Raises the trust bar from "Statem says so" to "Statem says so, audited and attested by a regulated firm." Every statement across every tier carries this signature.</p>
+        <div class="when">Next 60 days · Acceptance test #2–N</div>
+        <h4>Stress-test acceptance across multiple jurisdictions</h4>
+        <p>Queueing more applications across regimes with very different postures: Portugal D7 (passive-income visa), UAE GDRFAD Virtual Work, a Schengen short-stay (the hard case — one consulate already said "fiat only"), and Germany freelancer visa. Each rejection tells us exactly what's missing in the document — auditor signature, period structure, bank-format conformance — and feeds back into the product within the same week.</p>
+      </div>
+      <div class="step">
+        <div class="when">In progress · CPA + attestation partnerships</div>
+        <h4>Attestation letters from named accounting firms</h4>
+        <p>Active outreach to crypto-native attestation practices that already serve the digital-asset audit market: <strong>Armanino</strong> (Top-25 firm, blockchain attestation tool live), <strong>The Network Firm</strong> (ex-Armanino crypto team, now independent), plus Big-Four-adjacent practices (Deloitte audits Coinbase; Tether just engaged a Big Four for its inaugural audit, Mar 2026). Every Statem document — across every tier — will carry a co-signed attestation letter from a recognised CPA firm. Bank-grade trust, transferred.</p>
+        <p style="font-size:12px;color:var(--silver);margin-top:6px"><a href="https://www.armaninollp.com/industries/crypto-digital-assets/" style="color:var(--silver)">Armanino · Crypto practice</a> · <a href="https://www.pymnts.com/cryptocurrency/2026/tether-taps-big-four-accounting-firm-for-inaugural-audit/" style="color:var(--silver)">Tether/Big-Four (PYMNTS · Mar 2026)</a></p>
       </div>
       <div class="step">
         <div class="when">Week 1–4 · Channel</div>
-        <h4>Close Network School integration · pursue 5 more</h4>
-        <p>Embed Statem in NS application form. Outreach to Próspera, Vitalia, Esmeralda, Zuzalu-style pop-ups; sign first travel agencies and crypto-native firms.</p>
+        <h4>Close NS integration · soft intros to 5 more pop-ups · Nomadz collab</h4>
+        <p>Embed Statem in the Network School application form (the long-term distribution route — every cohort, every renewal). Soft-intro outreach to Próspera, Vitalia, Esmeralda, Zuzalu-shaped pop-ups. Open prospective collaboration with <strong>Nomadz.xyz</strong> — embedded Statem alongside their Web3 travel booking flow.</p>
       </div>
       <div class="step">
         <div class="when">Week 3–6 · On-chain hardening</div>
@@ -551,7 +669,7 @@
         <tr>
           <td class="col-tag"><span class="tag bad">High · Market</span></td>
           <td>Institutional acceptance unproven. UK gov says Bitcoin savings unacceptable for student visas. Schengen consulate said fiat-only.</td>
-          <td>Live acceptance test in progress — Statem documents are being submitted to real visa applications across multiple countries. CPA attestation outreach is active and will sign every statement.</td>
+          <td><strong>Thailand DTV submitted strictly with Statem — awaiting feedback.</strong> Portugal D7, UAE Virtual Work, Schengen, Germany freelancer next. CPA attestation outreach active (Armanino, The Network Firm, Big-Four-adjacent) — every statement will be co-signed.</td>
         </tr>
         <tr>
           <td class="col-tag"><span class="tag bad">High · Market</span></td>
@@ -585,26 +703,26 @@
   <!-- Slide 12: The Ask -->
   <section class="slide">
     <div class="crumb"><span>The ask</span><span class="num">12 / 12</span></div>
-    <span class="tag ink">Pre-seed · 12-month runway</span>
+    <span class="tag ink">Angel round · 12-month runway</span>
     <h2>What we're raising. What it buys. What success looks like.</h2>
 
     <div class="ask-block">
-      <h2 style="margin-bottom:8px">Pre-seed · target $400k SAFE</h2>
-      <p>12 months of runway to resolve institutional acceptance, lock in 3 B2B beachheads, and reach $20k MRR before priced round.</p>
+      <h2 style="margin-bottom:8px">Angel round · target $250k SAFE</h2>
+      <p>12 months of runway to resolve institutional acceptance (Thailand DTV result first, then 4 more jurisdictions), lock in 3 B2B beachheads (NS + pop-ups + Nomadz), sign 2 named CPA attestation partners, and reach $20k MRR before priced seed.</p>
       <div class="row">
         <div>
           <div class="k">40% · Engineering</div>
-          <div class="v">$160k</div>
+          <div class="v">$100k</div>
           <p style="margin-top:8px">SAS issuer, on-chain anchor, multi-chain hardening, admin panel UI.</p>
         </div>
         <div>
           <div class="k">35% · Partnerships & legal</div>
-          <div class="v">$140k</div>
+          <div class="v">$87.5k</div>
           <p style="margin-top:8px">CPA firm retainers, bank/audit attestation contracts, KYC/data-protection legal review.</p>
         </div>
         <div>
           <div class="k">25% · GTM</div>
-          <div class="v">$100k</div>
+          <div class="v">$62.5k</div>
           <p style="margin-top:8px">B2B sales (pop-up cities, immigration consultants, crypto-tax firms), content, paid acquisition tests.</p>
         </div>
       </div>
@@ -620,7 +738,7 @@
 
     <div class="footer">
       <span>STATEM · ON-CHAIN FINANCE, OFFICIALLY DOCUMENTED</span>
-      <span>v1.0 · 2026-05-09 · hello@statem.finance</span>
+      <span>v1.1 · 2026-05-12 · hello@statem.finance</span>
     </div>
   </section>
 
